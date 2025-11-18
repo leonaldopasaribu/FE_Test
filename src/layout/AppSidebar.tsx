@@ -30,24 +30,17 @@ const navItems: NavItem[] = [
     name: 'Dashboard',
     path: '/',
   },
-
   {
     icon: <TableIcon />,
     name: 'Laporan Lalin',
     subItems: [{ name: 'Laporan Per Hari', path: '/basic-tables', pro: false }],
   },
-
   {
     icon: <PageIcon />,
     name: 'Master Gerbang',
     path: '/gate-master',
   },
 
-  {
-    name: 'Tables',
-    icon: <TableIcon />,
-    subItems: [{ name: 'Basic Tables', path: '/basic-tables', pro: false }],
-  },
 ];
 
 const AppSidebar: React.FC = () => {
