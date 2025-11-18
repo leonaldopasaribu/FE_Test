@@ -13,11 +13,18 @@ export default function SignInLayout({
         {children}
         <div className="bg-brand-950 hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
           <div className="relative z-1 flex items-center justify-center">
-            {/* <!-- ===== Common Grid Shape Start ===== --> */}
             <GridShape />
-            <div className="flex max-w-xs flex-col items-center">
-              <p className="text-center text-gray-400 dark:text-white/60">
-                Free and Open-Source Tailwind CSS Admin Dashboard Template
+            <div className="flex max-w-xl flex-col items-center">
+              <p className="text-center leading-relaxed text-gray-400 dark:text-white/60">
+                <span className="mb-4 block text-3xl font-bold text-white dark:text-white">
+                  Jasa Marga Dashboard
+                </span>
+                <span className="block text-lg opacity-90">
+                  Satu platform terpadu untuk mengawal konektivitas Indonesia.{' '}
+                  <br />
+                  Data akurat, keputusan cepat, layanan terbaik — <br />
+                  karena setiap kilometer perjalanan adalah amanah kami.
+                </span>
               </p>
             </div>
           </div>
