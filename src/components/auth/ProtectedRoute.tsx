@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router';
+import { SIGN_IN_ROUTE_URL } from '../../constants/route-url.constant';
 
 export default function ProtectedRoute() {
-  const token = localStorage.getItem('authToken');
+  const hasToken = localStorage.getItem('authToken');
 
-  if (!token) {
-    // Redirect to login if no token is found
-    return <Navigate to="/signin" replace />;
+  if (!hasToken) {
+    return <Navigate to={SIGN_IN_ROUTE_URL} replace />;
   }
 
   return <Outlet />;

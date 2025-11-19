@@ -7,8 +7,8 @@ export default function NotFound() {
   return (
     <>
       <PageMeta
-        title="React.js 404 Dashboard | TailAdmin - React.js Admin Dashboard Template"
-        description="This is React.js 404 Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
+        title="React.js 404 Dashboard | Jasa Marga"
+        description="This is 404 page for Jasa Marga"
       />
       <div className="relative z-1 flex min-h-screen flex-col items-center justify-center overflow-hidden p-6">
         <GridShape />

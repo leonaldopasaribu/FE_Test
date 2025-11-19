@@ -3,17 +3,11 @@ import { Link, useLocation } from 'react-router';
 
 // Assume these icons are imported from an icon library
 import {
-  BoxCubeIcon,
-  CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  ListIcon,
   PageIcon,
-  PieChartIcon,
-  PlugInIcon,
   TableIcon,
-  UserCircleIcon,
 } from '../icons';
 import { useSidebar } from '../context/SidebarContext';
 
@@ -33,14 +27,13 @@ const navItems: NavItem[] = [
   {
     icon: <TableIcon />,
     name: 'Laporan Lalu Lintas',
-    subItems: [{ name: 'Laporan Per Hari', path: '/basic-tables', pro: false }],
+    subItems: [{ name: 'Laporan Per Hari', path: '/traffic', pro: false }],
   },
   {
     icon: <PageIcon />,
     name: 'Master Gerbang',
     path: '/gate-master',
   },
-
 ];
 
 const AppSidebar: React.FC = () => {
@@ -254,20 +247,7 @@ const AppSidebar: React.FC = () => {
         <Link to="/">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
-              <img
-                className="dark:hidden"
-                src="/images/logo/logo.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-              />
-              <img
-                className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-              />
+              <h1 className='text-theme-purple-500 text-2xl font-bold dark:text-white'>Jasa Marga</h1>
             </>
           ) : (
             <img
@@ -284,7 +264,7 @@ const AppSidebar: React.FC = () => {
           <div className="flex flex-col gap-4">
             <div>
               <h2
-                className={`mb-4 flex text-xs leading-[20px] text-gray-400 uppercase ${
+                className={`mb-4 flex text-xs leading-5 text-gray-400 uppercase ${
                   !isExpanded && !isHovered
                     ? 'lg:justify-center'
                     : 'justify-start'

@@ -202,8 +202,8 @@ export default function GateMaster() {
   return (
     <>
       <PageMeta
-        title="Gate Master | TailAdmin - React.js Admin Dashboard Template"
-        description="This is Gate Master page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
+        title="Gate Master | Jasa Marga"
+        description="This is Gate Master page for Jasa Marga"
       />
       <PageBreadcrumb pageTitle="Gate Master" />
 

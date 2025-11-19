@@ -11,7 +11,9 @@ import {
   DASHBOARD_ROUTE_URL,
   GATE_MASTER_ROUTE_URL,
   SIGN_IN_ROUTE_URL,
+  TRAFFIC_ROUTE_URL,
 } from './constants/route-url.constant';
+import Traffic from './pages/traffic/Traffic';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index path={DASHBOARD_ROUTE_URL} element={<Dashboard />} />
             <Route path={GATE_MASTER_ROUTE_URL} element={<GateMaster />} />
+            <Route path={TRAFFIC_ROUTE_URL} element={<Traffic />} />
           </Route>
         </Route>
 
