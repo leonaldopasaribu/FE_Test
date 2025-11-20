@@ -1,88 +1,186 @@
-<img width="1470" height="691" alt="image" src="https://github.com/user-attachments/assets/d72754a9-840b-4ee4-b0da-c2b6da9de3fe" />Demo
-1. Sign In Page
-<img width="1470" height="715" alt="image" src="https://github.com/user-attachments/assets/4f36379d-4b97-4d0b-b821-36487bf4c3f0" />
+# FE Test - Traffic & Gate Management System
 
-2. Dashboard Page
-<img width="1470" height="676" alt="image" src="https://github.com/user-attachments/assets/6def3ed7-ebdb-4755-b714-972a8c18ba4f" />
+A modern web application for traffic and gate management built with React, TypeScript, and Vite. This system provides an intuitive interface for monitoring and managing traffic data and gate operations.
 
-3. Traffic Page
-<img width="1470" height="691" alt="image" src="https://github.com/user-attachments/assets/8103532b-3221-4347-a46a-5609752e4530" />
+## 📸 Demo
 
-4. Gate Master Page
-<img width="1470" height="669" alt="image" src="https://github.com/user-attachments/assets/f1e41d2c-e310-4559-8d65-ef4c00413267" />
+### 1. Sign In Page
+<img width="1470" height="715" alt="Sign In Page" src="https://github.com/user-attachments/assets/4f36379d-4b97-4d0b-b821-36487bf4c3f0" />
 
+### 2. Dashboard Page
+<img width="1470" height="676" alt="Dashboard Page" src="https://github.com/user-attachments/assets/6def3ed7-ebdb-4755-b714-972a8c18ba4f" />
 
+### 3. Traffic Management Page
+<img width="1470" height="691" alt="Traffic Page" src="https://github.com/user-attachments/assets/8103532b-3221-4347-a46a-5609752e4530" />
 
-# React + TypeScript + Vite
+### 4. Gate Master Page
+<img width="1470" height="669" alt="Gate Master Page" src="https://github.com/user-attachments/assets/f1e41d2c-e310-4559-8d65-ef4c00413267" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✨ Features
 
-Currently, two official plugins are available:
+- 🔐 **Authentication System** - Secure sign-in functionality
+- 📊 **Dashboard** - Real-time monitoring and analytics
+- 🚗 **Traffic Management** - Comprehensive traffic data tracking
+- 🚧 **Gate Master** - Gate operations and management
+- 🎨 **Modern UI** - Built with Chakra UI and TailwindCSS
+- 🌙 **Dark Mode** - Theme switching support
+- 📱 **Responsive Design** - Mobile-friendly interface
+- ⚡ **Fast Performance** - Powered by Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack
 
-## React Compiler
+### Core
+- **React 19** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Vite 7** - Build tool and dev server
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Styling
+- **TailwindCSS 4** - Utility-first CSS framework
+- **Chakra UI** - Component library
+- **Emotion** - CSS-in-JS
 
-## Expanding the ESLint configuration
+### Routing & State
+- **React Router 7** - Client-side routing
+- **Context API** - State management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Development Tools
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Jest** - Testing framework
+- **Testing Library** - Component testing
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Additional Libraries
+- **Lucide React** - Icon library
+- **React Helmet Async** - Head management
+- **React Dropzone** - File upload
+- **Flatpickr** - Date picker
+- **Swiper** - Carousel/slider
+- **SimpleBar** - Custom scrollbar
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📋 Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Before you begin, ensure you have the following installed:
+- **Node.js** (v18 or higher)
+- **pnpm** (recommended) or npm/yarn
+
+## 🚀 Getting Started
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/leonaldopasaribu/FE_Test.git
+cd FE_Test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies
+```bash
+pnpm install
 ```
+
+3. Set up environment variables
+```bash
+cp .env.example .env
+```
+Edit the `.env` file with your configuration.
+
+4. Start the development server
+```bash
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## 📜 Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm preview` | Preview production build |
+| `pnpm lint` | Run ESLint |
+| `pnpm format` | Format code with Prettier |
+| `pnpm format:check` | Check code formatting |
+| `pnpm test` | Run tests |
+| `pnpm test:watch` | Run tests in watch mode |
+| `pnpm test:coverage` | Generate test coverage report |
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# API Configuration
+VITE_API_BASE_URL=your_api_base_url
+VITE_API_TIMEOUT=30000
+
+# Add other environment variables as needed
+```
+
+### Vite Configuration
+
+The project uses Vite for fast development and optimized builds. Configuration can be found in `vite.config.ts`.
+
+## 🧪 Testing
+
+This project uses Jest and React Testing Library for testing:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Generate coverage report
+pnpm test:coverage
+```
+
+## 🎨 Code Style
+
+This project follows strict code quality standards:
+
+- **ESLint** for code linting
+- **Prettier** for code formatting
+- **TypeScript** for type safety
+
+Run the following commands to maintain code quality:
+
+```bash
+# Check linting
+pnpm lint
+
+# Format code
+pnpm format
+
+# Check formatting
+pnpm format:check
+```
+
+## 📝 Development Guidelines
+
+1. **Component Structure**: Follow the established component structure in `src/components`
+2. **TypeScript**: Use proper TypeScript types and interfaces
+3. **Styling**: Use TailwindCSS utility classes and Chakra UI components
+4. **API Integration**: Place API calls in the `src/api` directory
+5. **Testing**: Write tests for critical components and functions
+6. **Code Formatting**: Run `pnpm format` before committing
+
+## 👤 Author
+
+**Leonaldo Pasaribu**
+
+- GitHub: [@leonaldopasaribu](https://github.com/leonaldopasaribu)
+
+## 🙏 Acknowledgments
+
+- Built with [Vite](https://vitejs.dev/)
+- UI components from [Chakra UI](https://chakra-ui.com/)
+- Styled with [TailwindCSS](https://tailwindcss.com/)
+- Icons from [Lucide React](https://lucide.dev/)
+
+---
+
+Made with ❤️ by Leonaldo Pasaribu
