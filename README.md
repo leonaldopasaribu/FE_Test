@@ -1,3 +1,18 @@
+<img width="1470" height="691" alt="image" src="https://github.com/user-attachments/assets/d72754a9-840b-4ee4-b0da-c2b6da9de3fe" />Demo
+1. Sign In Page
+<img width="1470" height="715" alt="image" src="https://github.com/user-attachments/assets/4f36379d-4b97-4d0b-b821-36487bf4c3f0" />
+
+2. Dashboard Page
+<img width="1470" height="676" alt="image" src="https://github.com/user-attachments/assets/6def3ed7-ebdb-4755-b714-972a8c18ba4f" />
+
+3. Traffic Page
+<img width="1470" height="691" alt="image" src="https://github.com/user-attachments/assets/8103532b-3221-4347-a46a-5609752e4530" />
+
+4. Gate Master Page
+<img width="1470" height="669" alt="image" src="https://github.com/user-attachments/assets/f1e41d2c-e310-4559-8d65-ef4c00413267" />
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
