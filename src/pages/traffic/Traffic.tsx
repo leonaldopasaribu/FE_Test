@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PageMeta from '../../components/common/PageMeta';
 import PageBreadcrumb from '../../components/common/PageBreadCrumb';
 import ComponentCard from '../../components/common/ComponentCard';
 import Pagination from '../../components/common/Pagination';
 import SearchInput from '../../components/common/SearchInput';
-import { trafficApi } from '../../api';
 import type { Traffic, GroupedTrafficRow } from '../../api/traffic/types';
+import { useTraffic } from '../../hooks';
 import {
   Table,
   TableBody,
@@ -18,43 +18,25 @@ import Button from '../../components/ui/button/Button';
 import Input from '../../components/form/input/InputField';
 
 export default function TrafficPage() {
-  const [traffics, setTraffics] = useState<Traffic[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-
   const [dateFilter, setDateFilter] = useState('');
+  const [appliedDateFilter, setAppliedDateFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<
     'all' | 'tunai' | 'etoll' | 'flo' | 'ktp'
   >('all');
 
-  const fetchData = async (
-    page: number = currentPage,
-    date: string = dateFilter
-  ) => {
-    try {
-      setIsLoading(true);
-      setError('');
-      const response = await trafficApi.fetchAll(
-        page,
-        itemsPerPage,
-        date || undefined
-      );
-      setTraffics(response.data.rows.rows);
-      setTotalPages(response.data.total_pages);
-      setTotalItems(response.data.count);
-      setCurrentPage(page);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // React Query hook
+  const {
+    data: trafficData,
+    isLoading,
+    error,
+  } = useTraffic(currentPage, itemsPerPage, appliedDateFilter);
+
+  const traffics = trafficData?.data?.rows?.rows || [];
+  const totalPages = trafficData?.data?.total_pages || 1;
+  const totalItems = trafficData?.data?.count || 0;
 
   const handleDateFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -67,22 +49,18 @@ export default function TrafficPage() {
 
   const handleApplyFilter = () => {
     setCurrentPage(1);
-    fetchData(1, dateFilter);
+    setAppliedDateFilter(dateFilter);
   };
 
   const handleClearFilter = () => {
     setDateFilter('');
     setSearchQuery('');
     setCurrentPage(1);
-    fetchData(1, '');
+    setAppliedDateFilter('');
   };
 
-  useEffect(() => {
-    fetchData(1);
-  }, [itemsPerPage]);
-
   const handlePageChange = (page: number) => {
-    fetchData(page);
+    setCurrentPage(page);
   };
 
   const handleLimitChange = (newLimit: number) => {
@@ -245,7 +223,11 @@ export default function TrafficPage() {
       <div className="space-y-6">
         <ComponentCard title="Traffic Per Day">
           {error && (
-            <Alert variant="error" title="Error" message={error}></Alert>
+            <Alert
+              variant="error"
+              title="Error"
+              message={error instanceof Error ? error.message : 'An error occurred'}
+            ></Alert>
           )}
 
           {isLoading ? (

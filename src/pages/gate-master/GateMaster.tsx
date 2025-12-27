@@ -1,11 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import PageMeta from '../../components/common/PageMeta';
 import PageBreadcrumb from '../../components/common/PageBreadCrumb';
 import ComponentCard from '../../components/common/ComponentCard';
 import Pagination from '../../components/common/Pagination';
 import SearchInput from '../../components/common/SearchInput';
-import { gateMasterApi } from '../../api';
 import type { GateMaster } from '../../api/gate-master/types';
+import {
+  useGateMasters,
+  useCreateGateMaster,
+  useUpdateGateMaster,
+  useDeleteGateMaster,
+} from '../../hooks';
 import {
   Table,
   TableBody,
@@ -19,23 +24,16 @@ import GateMasterDeleteModal from './components/GateMasterDeleteModal';
 import Alert from '../../components/ui/alert/Alert';
 
 export default function GateMaster() {
-  const [gateMasters, setGateMasters] = useState<GateMaster[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const searchTimeoutRef = useRef<number | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedGateMaster, setSelectedGateMaster] =
     useState<GateMaster | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     id: '',
@@ -44,24 +42,20 @@ export default function GateMaster() {
     NamaGerbang: '',
   });
 
-  const fetchData = async (
-    page: number = currentPage,
-    search: string = searchQuery
-  ) => {
-    try {
-      setIsLoading(true);
-      setError('');
-      const response = await gateMasterApi.fetchAll(page, itemsPerPage, search);
-      setGateMasters(response.data.rows.rows);
-      setTotalPages(response.data.total_pages);
-      setTotalItems(response.data.count);
-      setCurrentPage(page);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // React Query hooks
+  const {
+    data: gateMastersData,
+    isLoading,
+    error,
+  } = useGateMasters(currentPage, itemsPerPage, debouncedSearchQuery);
+
+  const createMutation = useCreateGateMaster();
+  const updateMutation = useUpdateGateMaster();
+  const deleteMutation = useDeleteGateMaster();
+
+  const gateMasters = gateMastersData?.data?.rows?.rows || [];
+  const totalPages = gateMastersData?.data?.total_pages || 1;
+  const totalItems = gateMastersData?.data?.count || 0;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -73,24 +67,12 @@ export default function GateMaster() {
 
     searchTimeoutRef.current = window.setTimeout(() => {
       setCurrentPage(1);
-      fetchData(1, value);
+      setDebouncedSearchQuery(value);
     }, 500);
   };
 
-  useEffect(() => {
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchData(1);
-  }, [itemsPerPage]);
-
   const handlePageChange = (page: number) => {
-    fetchData(page);
+    setCurrentPage(page);
   };
 
   const handleLimitChange = (newLimit: number) => {
@@ -150,8 +132,6 @@ export default function GateMaster() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError('');
 
     try {
       const id = parseInt(formData.id);
@@ -165,39 +145,35 @@ export default function GateMaster() {
       };
 
       if (selectedGateMaster) {
-        await gateMasterApi.update(payload);
+        await updateMutation.mutateAsync(payload);
       } else {
-        await gateMasterApi.create(payload);
+        await createMutation.mutateAsync(payload);
       }
 
-      await fetchData();
       handleCloseModal();
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Failed to save data');
-    } finally {
-      setIsSubmitting(false);
+      console.error('Failed to save data:', error);
     }
   };
 
   const handleConfirmDelete = async () => {
     if (!selectedGateMaster) return;
 
-    setIsSubmitting(true);
-    setError('');
-
     try {
-      await gateMasterApi.delete(
-        selectedGateMaster.id,
-        selectedGateMaster.IdCabang
-      );
-      await fetchData();
+      await deleteMutation.mutateAsync({
+        id: selectedGateMaster.id,
+        IdCabang: selectedGateMaster.IdCabang,
+      });
       handleCloseModal();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete data');
-    } finally {
-      setIsSubmitting(false);
+    } catch (error) {
+      console.error('Failed to delete data:', error);
     }
   };
+
+  const isSubmitting =
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending;
 
   return (
     <>
@@ -236,7 +212,11 @@ export default function GateMaster() {
           }
         >
           {error && (
-            <Alert variant="error" title="Error" message={error}></Alert>
+            <Alert
+              variant="error"
+              title="Error"
+              message={error instanceof Error ? error.message : 'An error occurred'}
+            ></Alert>
           )}
 
           {isLoading ? (
